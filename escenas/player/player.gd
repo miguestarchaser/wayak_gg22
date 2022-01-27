@@ -1,8 +1,11 @@
 extends KinematicBody2D
 
+var _bullet 		= load("res://escenas/bullet/bullet.tscn");
+
 var MOTION_SPEED 	= 200 # Pixels/second.
 var HP 				= 10;
-var DIR_VIEW 		= 0; 			 
+var DIR_VIEW 		= 0; 
+var DIR_			= "d";
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -18,6 +21,7 @@ func _physics_process(_delta):
 		$Sprite.set_frame(0);
 		DIR_VIEW = 0;
 		pass
+	
 	var motion = Vector2()
 	motion.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	motion.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
@@ -25,3 +29,36 @@ func _physics_process(_delta):
 	motion = motion.normalized() * MOTION_SPEED
 	
 	move_and_slide(motion)
+	
+func _process(delta):
+	if(Input.is_action_pressed("ui_up")):
+		DIR_ = "u"
+	elif(Input.is_action_pressed("ui_down")):
+		DIR_ = "d"
+	elif(Input.is_action_pressed("ui_left")):
+		DIR_ = "l"
+	elif(Input.is_action_pressed("ui_right")):		
+		DIR_ = "r"
+	if(Input.is_action_just_pressed("space") ):
+		_shoot();
+	pass
+	
+	
+func _shoot():
+	var bpos = position;
+	if(DIR_ == "d"):
+		bpos.y = bpos.y - 20;
+	elif(DIR_ == "u"):
+		bpos.y = bpos.y + 20;
+	elif(DIR_ == "l"):
+		bpos.x = bpos.x - 20;
+	elif(DIR_ == "r"):
+		bpos.x = bpos.x + 20;
+	var bullet = _bullet.instance();
+	bullet.position = bpos
+	get_parent().add_child(bullet)
+	bullet.get_child(0)._set_dir(DIR_);
+	
+	#print(position);
+	#add_child(bullet);
+	pass
