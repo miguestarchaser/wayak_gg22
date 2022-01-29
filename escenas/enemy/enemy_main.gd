@@ -11,9 +11,9 @@ var directions 			= ["d", "l", "u", "r","l","u","d","r"];
 var _velocity 			= Vector2();
 
 var hp 		= 3;
-var type	= 0;
+export var type	= 0;
 var status 	= 0;	
-var spt 	= 0;
+export var spt 	= 0;
 var _size 	= Vector2();
 var _scale 	= Vector2();	
 
@@ -94,7 +94,11 @@ func _walk(delta):
 		if(collision.collider.name == "muros"):
 			_rotate(delta);
 		if(collision.collider.name == "enemy"):
-			_rotate(delta);
+			if(collision.collider.spt == spt && type == collision.collider.type):
+				_giga();
+				collision.collider._remove();
+			else:
+				_rotate(delta);
 	pass
 
 func _fusion(delta):
@@ -128,4 +132,22 @@ func _resize():
 	else:
 		$skeleton.scale = s;
 	$scale.paused = true;
+	pass
+
+func _giga():
+	var s = Vector2();
+	s.x = 1.5 ;
+	s.y = 1.5 ;
+	if(spt == 0):
+		$ghost.scale = s;
+		_scale = $ghost.scale;
+	else:
+		$skeleton.scale = s;
+		_scale = $skeleton.scale;
+	hp = hp + 5;
+	speed = speed - 5;
+	pass
+	
+func _remove():
+	queue_free();
 	pass
