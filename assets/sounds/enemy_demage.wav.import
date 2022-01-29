@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/enemy_demage.wav-396bc0a6c62a9621ef75a5abbeb3ef95.sample"
+
+[deps]
+
+source_file="res://assets/sounds/enemy_demage.wav"
+dest_files=[ "res://.import/enemy_demage.wav-396bc0a6c62a9621ef75a5abbeb3ef95.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

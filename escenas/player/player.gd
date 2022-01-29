@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var _bullet 		= load("res://escenas/bullet/bullet.tscn");
-
+var bullet_sound 	= preload("res://assets/sounds/bullet.wav");
 var MOTION_SPEED 	= 200 # Pixels/second.
 var HP 				= 10;
 var DIR_VIEW 		= 0; 
@@ -47,6 +47,8 @@ func _process(delta):
 	
 	
 func _shoot():
+	$AudioStreamPlayer2D.stream = bullet_sound;
+	$AudioStreamPlayer2D.play()
 	var bpos = position;
 	if(DIR_ == "d"):
 		bpos.y = bpos.y - 20;

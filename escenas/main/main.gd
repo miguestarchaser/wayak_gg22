@@ -1,8 +1,9 @@
 extends Node2D
 
-var _mapa 	= load("res://escenas/mapa/mapa.tscn");
-var	_player = load("res://escenas/player/player.tscn");
-var _enemy 	= load("res://escenas/enemy/enemy.tscn");
+var _mapa 			= load("res://escenas/mapa/mapa.tscn");
+var	_player 		= load("res://escenas/player/player.tscn");
+var _enemy 			= load("res://escenas/enemy/enemy.tscn");
+var change_sound 	= preload("res://assets/sounds/coin.wav");
 
 var mapa;
 var player;	 
@@ -25,6 +26,8 @@ func _process(delta):
 	if(Input.is_action_just_pressed("change") ):
 		player.get_child(0)._change();
 		mapa._change();
+		$AudioStreamPlayer2D.stream = change_sound;
+		$AudioStreamPlayer2D.play()
 	pass
 
 func _spawn():

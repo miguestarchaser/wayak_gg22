@@ -10,6 +10,10 @@ var cdir 				= 0;
 var directions 			= ["d", "l", "u", "r","l","u","d","r"];
 var _velocity 			= Vector2();
 
+var demage_sound 				= preload("res://assets/sounds/enemy_demage.wav");
+var fusion_sound 				= preload("res://assets/sounds/fusion.wav");
+var dead_sound 					= preload("res://assets/sounds/destruye.wav");
+
 var hp 			= 3;
 export var type	= 0;
 var status 		= 0;	
@@ -25,6 +29,11 @@ func _ready():
 	$scale.start();
 	$scale.paused = true;
 	$scale.connect("timeout", self, "_resize")
+	
+	$dead.set_wait_time(0.3);
+	$dead.start();
+	$dead.paused = true;
+	$dead.connect("timeout", self, "_remove")
 	randomize();
 	var random_value 	= rand_range(0,2);
 	random_value		= int(floor(random_value));
@@ -118,8 +127,15 @@ func _demage(_type_bullet):
 	if(_type_bullet == type):
 		hp = hp -1;
 		if(hp == 0):
-			queue_free();
+			#if !$AudioStreamPlayer2D.is_playing():
+			$AudioStreamPlayer2D.stream = dead_sound;
+			$AudioStreamPlayer2D.play()
+			#queue_free();
+			$dead.paused = false;
 		else:
+			#if !$AudioStreamPlayer2D.is_playing():
+			$AudioStreamPlayer2D.stream = demage_sound;
+			$AudioStreamPlayer2D.play()
 			var s = Vector2();
 			if(spt == 0):
 				s.x = $ghost.scale.x + 0.070 ;
@@ -145,6 +161,9 @@ func _resize():
 	pass
 
 func _giga():
+	if !$AudioStreamPlayer2D.is_playing():
+		$AudioStreamPlayer2D.stream = fusion_sound;
+		$AudioStreamPlayer2D.play()
 	var s = Vector2();
 	if(spt == 0):
 		s.x = $ghost.scale.x + 0.3 ;
@@ -161,6 +180,8 @@ func _giga():
 	demage 	= demage + 1;
 	pass
 	
+	
 func _remove():
+	$dead.paused = true;
 	queue_free();
 	pass

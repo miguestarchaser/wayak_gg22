@@ -63,3 +63,7 @@ animation = "luz"
 playing = true
 
 [node name="scale" type="Timer" parent="enemy"]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="enemy"]
+
+[node name="dead" type="Timer" parent="enemy"]
