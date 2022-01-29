@@ -27,8 +27,11 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+	if(Input.is_action_just_pressed("change") ):
+		player.get_child(0)._change();
+		mapa._change();
+	pass
 
 func _spawn():
 	enemy = _enemy.instance();

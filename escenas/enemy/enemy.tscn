@@ -1,16 +1,25 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/Ghost/Ghost2.png" type="Texture" id=1]
 [ext_resource path="res://assets/Ghost/Ghost1.png" type="Texture" id=2]
 [ext_resource path="res://escenas/enemy/enemy.gd" type="Script" id=3]
 [ext_resource path="res://assets/Skeleton/Skeleton1.png" type="Texture" id=4]
 [ext_resource path="res://assets/Skeleton/Skeleton2.png" type="Texture" id=5]
+[ext_resource path="res://assets/Ghost/ghost_dark2.png" type="Texture" id=6]
+[ext_resource path="res://assets/Skeleton/skeleton_dark2.png" type="Texture" id=7]
+[ext_resource path="res://assets/Ghost/ghost_dark1.png" type="Texture" id=8]
+[ext_resource path="res://assets/Skeleton/skeleton_dark1.png" type="Texture" id=9]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 1 ) ],
 "loop": true,
-"name": "default",
+"name": "luz",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "dark",
 "speed": 5.0
 } ]
 
@@ -21,7 +30,12 @@ extents = Vector2( 7, 14 )
 animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ) ],
 "loop": true,
-"name": "default",
+"name": "luz",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ), ExtResource( 7 ) ],
+"loop": true,
+"name": "dark",
 "speed": 5.0
 } ]
 
@@ -37,7 +51,8 @@ cast_to = Vector2( -50, 0 )
 [node name="ghost" type="AnimatedSprite" parent="enemy"]
 visible = false
 frames = SubResource( 1 )
-frame = 1
+animation = "luz"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
 position = Vector2( -3, 2 )
@@ -48,3 +63,6 @@ visible = false
 position = Vector2( -1.5, 2.5 )
 scale = Vector2( 1.0625, 0.8125 )
 frames = SubResource( 3 )
+animation = "luz"
+frame = 1
+playing = true

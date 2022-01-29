@@ -1,10 +1,6 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
+var type = 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,6 +9,15 @@ func _ready():
 func _get_spawn():
 	return $Position2D.transform.origin;	
 	pass;
+	
+func _change():
+	if(type == 0):
+		type = 1;
+		$fondo.color = Color(1, 1, 1, 1);
+	else:
+		type = 0;
+		$fondo.color = Color(0, 0, 0, 1);
+		pass
 	
 func _get_enemy_spawn():
 	var pos 			= Vector2();

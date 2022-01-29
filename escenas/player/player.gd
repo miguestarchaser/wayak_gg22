@@ -6,6 +6,7 @@ var MOTION_SPEED 	= 200 # Pixels/second.
 var HP 				= 10;
 var DIR_VIEW 		= 0; 
 var DIR_			= "d";
+var type 			= 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,6 +42,7 @@ func _process(delta):
 		DIR_ = "r"
 	if(Input.is_action_just_pressed("space") ):
 		_shoot();
+	
 	pass
 	
 	
@@ -57,8 +59,17 @@ func _shoot():
 	var bullet = _bullet.instance();
 	bullet.position = bpos
 	get_parent().add_child(bullet)
-	bullet.get_child(0)._set_dir(DIR_);
+	bullet.get_child(0)._set_dir(DIR_,type );
 	
 	#print(position);
 	#add_child(bullet);
+	pass
+
+func _change():
+	if(type  == 0):
+		type  = 1;
+		$Sprite.animation ="dark";
+	else:
+		type  = 0;
+		$Sprite.animation ="luz";		
 	pass

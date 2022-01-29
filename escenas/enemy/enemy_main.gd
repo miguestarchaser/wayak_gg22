@@ -16,7 +16,32 @@ var status 	= 0;
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
+	randomize();
+	var random_value 	= rand_range(0,2);
+	random_value		= int(floor(random_value));
+	#print("spawn:"+str(random_value));
+	if(random_value == 0):
+		$ghost.show();
+		$ghost.play();
+		random_value 	= rand_range(0,2);
+		random_value		= int(floor(random_value));
+		if(random_value == 0):
+			$ghost.animation = "luz";
+			type = 0;
+		else:
+			$ghost.animation = "dark";
+			type = 1;
+	elif(random_value == 1):
+		$skeleton.show();
+		$skeleton.play();
+		random_value 	= rand_range(0,2);
+		random_value		= int(floor(random_value));
+		if(random_value == 0):
+			$skeleton.animation = "luz";
+			type = 0;
+		else:
+			$skeleton.animation = "dark";
+			type = 1;
 	pass # Replace with function body.
 
 
@@ -64,8 +89,9 @@ func _walk(delta):
 func _fusion(delta):
 	pass
 
-func _demage():
-	hp = hp -1;
-	if(hp == 0):
-		queue_free();
+func _demage(_type_bullet):
+	if(_type_bullet == type):
+		hp = hp -1;
+		if(hp == 0):
+			queue_free();
 	pass	
