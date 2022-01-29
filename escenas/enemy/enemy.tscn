@@ -48,7 +48,6 @@ script = ExtResource( 3 )
 visible = false
 frames = SubResource( 1 )
 animation = "luz"
-frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
@@ -61,7 +60,6 @@ position = Vector2( -1.5, 2.5 )
 scale = Vector2( 1.0625, 0.8125 )
 frames = SubResource( 3 )
 animation = "luz"
-frame = 1
 playing = true
 
 [node name="scale" type="Timer" parent="enemy"]

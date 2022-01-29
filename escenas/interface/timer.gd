@@ -1,6 +1,6 @@
 extends Node2D
 
-var time 	= 90;
+var time 	= 99;
 var ready 	= false;
 var texture;
 

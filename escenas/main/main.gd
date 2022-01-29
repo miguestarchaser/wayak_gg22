@@ -36,6 +36,7 @@ func _ready():
 	add_child(timer);
 	timer.position.x = get_viewport_rect().size.x / 2;
 	timer.position.y = timer.position.y +50;
+	timer.start_timer();
 	#print(get_viewport_rect().size.x);
 	pass # Replace with function body.
 
