@@ -44,14 +44,11 @@ animations = [ {
 [node name="enemy" type="KinematicBody2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="RayCast2D" type="RayCast2D" parent="enemy"]
-position = Vector2( -1, 0 )
-cast_to = Vector2( -50, 0 )
-
 [node name="ghost" type="AnimatedSprite" parent="enemy"]
 visible = false
 frames = SubResource( 1 )
 animation = "luz"
+frame = 1
 playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="enemy"]
@@ -64,5 +61,6 @@ position = Vector2( -1.5, 2.5 )
 scale = Vector2( 1.0625, 0.8125 )
 frames = SubResource( 3 )
 animation = "luz"
-frame = 1
 playing = true
+
+[node name="scale" type="Timer" parent="enemy"]
