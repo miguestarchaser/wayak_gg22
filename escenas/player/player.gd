@@ -9,6 +9,9 @@ var DIR_VIEW 		= 0;
 var DIR_			= "d";
 var type 			= 0;
 
+var paused 			= false;
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -24,26 +27,27 @@ func _physics_process(_delta):
 		DIR_VIEW = 0;
 		pass
 	
-	var motion = Vector2()
-	motion.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	motion.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
-	motion.y /= 2
-	motion = motion.normalized() * MOTION_SPEED
-	
-	move_and_slide(motion)
+	if(!paused):
+		var motion = Vector2()
+		motion.x = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		motion.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
+		motion.y /= 2
+		motion = motion.normalized() * MOTION_SPEED
+		move_and_slide(motion)
+	pass
 	
 func _process(delta):
-	if(Input.is_action_pressed("ui_up")):
-		DIR_ = "u"
-	elif(Input.is_action_pressed("ui_down")):
-		DIR_ = "d"
-	elif(Input.is_action_pressed("ui_left")):
-		DIR_ = "l"
-	elif(Input.is_action_pressed("ui_right")):		
-		DIR_ = "r"
-	if(Input.is_action_just_pressed("space") ):
-		_shoot();
-	
+	if(!paused):
+		if(Input.is_action_pressed("ui_up")):
+			DIR_ = "u"
+		elif(Input.is_action_pressed("ui_down")):
+			DIR_ = "d"
+		elif(Input.is_action_pressed("ui_left")):
+			DIR_ = "l"
+		elif(Input.is_action_pressed("ui_right")):		
+			DIR_ = "r"
+		if(Input.is_action_just_pressed("space") ):
+			_shoot();
 	pass
 	
 	
@@ -68,6 +72,10 @@ func _shoot():
 	#add_child(bullet);
 	pass
 
+func _pause(_paused):
+	paused = _paused;
+	pass
+
 func _change():
 	if(type  == 0):
 		type  = 1;
@@ -76,6 +84,7 @@ func _change():
 		type  = 0;
 		$Sprite.animation ="luz";		
 	pass
+	
 func _demage(demage):
 	HP = HP - demage;
 	$AudioStreamPlayer2D.stream = demage_sound;

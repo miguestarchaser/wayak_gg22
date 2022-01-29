@@ -9,6 +9,7 @@ var direction 			= "d";
 var cdir 				= 0;
 var directions 			= ["d", "l", "u", "r","l","u","d","r"];
 var _velocity 			= Vector2();
+var paused 				= false;
 
 var demage_sound 		= preload("res://assets/sounds/enemy_demage.wav");
 var fusion_sound 		= preload("res://assets/sounds/fusion.wav");
@@ -80,7 +81,7 @@ func _ready():
 #	pass
 
 func _physics_process(delta):
-	if(start):
+	if(start && !paused):
 		_walk(delta);
 	pass
 	
@@ -185,7 +186,10 @@ func _giga():
 	speed 	= speed - 5;
 	demage 	= demage + 1;
 	pass
-	
+
+func _pause(_paused):
+	paused = _paused;
+	pass	
 	
 func _remove():
 	$dead.paused = true;
