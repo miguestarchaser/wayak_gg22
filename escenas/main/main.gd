@@ -4,10 +4,14 @@ var _mapa 			= load("res://escenas/mapa/mapa.tscn");
 var	_player 		= load("res://escenas/player/player.tscn");
 var _enemy 			= load("res://escenas/enemy/enemy.tscn");
 var change_sound 	= preload("res://assets/sounds/coin.wav");
+var enemies 		= [];
+var current_enemy 	= 0;
+var max_enemies 	= 0;
 
 var mapa;
 var player;	 
 var enemy;
+
 
 func _ready():
 	$spawner.set_wait_time(1);
@@ -31,7 +35,23 @@ func _process(delta):
 	pass
 
 func _spawn():
-	enemy = _enemy.instance();
-	add_child(enemy);
-	enemy.position = mapa._get_enemy_spawn();
+	if(max_enemies < 50):
+		#enemy = _enemy.instance();	
+		enemies.push_back(_enemy.instance());
+		add_child(enemies[current_enemy]);
+		enemies[current_enemy].get_child(0).id 		= current_enemy;
+		enemies[current_enemy].position = mapa._get_enemy_spawn();
+		enemies[current_enemy].get_child(0).connect("_remove_enemy",self,"_remove_enemy");
+		enemies[current_enemy].get_child(0).connect("_player_demage",self,"_player_demage");
+		current_enemy 	= current_enemy +1 ;
+		max_enemies		= max_enemies +1;
+	pass
+	
+func _remove_enemy(id):
+	max_enemies = max_enemies -1;
+	enemies[id].queue_free();
+	pass
+	
+func _player_demage(demage):
+	player.get_child(0)._demage(demage);
 	pass

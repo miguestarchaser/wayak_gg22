@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 var _bullet 		= load("res://escenas/bullet/bullet.tscn");
 var bullet_sound 	= preload("res://assets/sounds/bullet.wav");
+var demage_sound 	= preload("res://assets/sounds/daño.wav");
 var MOTION_SPEED 	= 200 # Pixels/second.
 var HP 				= 10;
 var DIR_VIEW 		= 0; 
@@ -74,4 +75,9 @@ func _change():
 	else:
 		type  = 0;
 		$Sprite.animation ="luz";		
+	pass
+func _demage(demage):
+	HP = HP - demage;
+	$AudioStreamPlayer2D.stream = demage_sound;
+	$AudioStreamPlayer2D.play()
 	pass

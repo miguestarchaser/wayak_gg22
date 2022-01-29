@@ -10,18 +10,22 @@ var cdir 				= 0;
 var directions 			= ["d", "l", "u", "r","l","u","d","r"];
 var _velocity 			= Vector2();
 
-var demage_sound 				= preload("res://assets/sounds/enemy_demage.wav");
-var fusion_sound 				= preload("res://assets/sounds/fusion.wav");
-var dead_sound 					= preload("res://assets/sounds/destruye.wav");
+var demage_sound 		= preload("res://assets/sounds/enemy_demage.wav");
+var fusion_sound 		= preload("res://assets/sounds/fusion.wav");
+var dead_sound 			= preload("res://assets/sounds/destruye.wav");
 
 var hp 			= 3;
 export var type	= 0;
 var status 		= 0;	
 export var spt 	= 0;
 export var lv 	= 0;
+export var id	= 0;
 export var demage= 1;
 var _size 	= Vector2();
 var _scale 	= Vector2();	
+
+signal _remove_enemy(id);
+signal _player_demage(demage);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -108,6 +112,8 @@ func _walk(delta):
 	if collision:
 		if(collision.collider.name == "muros"):
 			_rotate(delta);
+		if(collision.collider.name == "player"):
+			emit_signal("_player_demage",demage);
 		if(collision.collider.name == "enemy"):
 			if(collision.collider.spt == spt && type == collision.collider.type):
 				if(hp > collision.collider.hp):
@@ -183,5 +189,6 @@ func _giga():
 	
 func _remove():
 	$dead.paused = true;
-	queue_free();
+	#queue_free();
+	emit_signal("_remove_enemy",id);
 	pass
