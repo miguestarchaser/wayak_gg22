@@ -10,10 +10,12 @@ var cdir 				= 0;
 var directions 			= ["d", "l", "u", "r","l","u","d","r"];
 var _velocity 			= Vector2();
 
-var hp 		= 3;
+var hp 			= 3;
 export var type	= 0;
-var status 	= 0;	
+var status 		= 0;	
 export var spt 	= 0;
+export var lv 	= 0;
+export var demage= 1;
 var _size 	= Vector2();
 var _scale 	= Vector2();	
 
@@ -53,6 +55,10 @@ func _ready():
 		else:
 			$skeleton.animation = "dark";
 			type = 1;
+		
+		random_value 	= rand_range(2,5);
+		random_value		= int(floor(random_value));
+		hp = random_value;
 	pass # Replace with function body.
 
 
@@ -95,8 +101,12 @@ func _walk(delta):
 			_rotate(delta);
 		if(collision.collider.name == "enemy"):
 			if(collision.collider.spt == spt && type == collision.collider.type):
-				_giga();
-				collision.collider._remove();
+				if(hp > collision.collider.hp):
+					_giga();
+					collision.collider._remove();
+				else:
+					collision.collider._giga();
+					_remove();
 			else:
 				_rotate(delta);
 	pass
@@ -136,16 +146,19 @@ func _resize():
 
 func _giga():
 	var s = Vector2();
-	s.x = 1.5 ;
-	s.y = 1.5 ;
 	if(spt == 0):
+		s.x = $ghost.scale.x + 0.3 ;
+		s.y = $ghost.scale.y + 0.3 ;
 		$ghost.scale = s;
 		_scale = $ghost.scale;
 	else:
+		s.x = $skeleton.scale.x + 0.3 ;
+		s.y = $skeleton.scale.y + 0.3 ;
 		$skeleton.scale = s;
 		_scale = $skeleton.scale;
-	hp = hp + 5;
-	speed = speed - 5;
+	hp 		= hp + 3;
+	speed 	= speed - 5;
+	demage 	= demage + 1;
 	pass
 	
 func _remove():
