@@ -16,6 +16,7 @@ var fusion_sound 		= preload("res://assets/sounds/fusion.wav");
 var dead_sound 			= preload("res://assets/sounds/destruye.wav");
 
 var hp 			= 3;
+var points 		= 1;
 export var type	= 0;
 var status 		= 0;	
 export var spt 	= 0;
@@ -27,6 +28,7 @@ var _scale 	= Vector2();
 
 signal _remove_enemy(id);
 signal _player_demage(demage);
+signal _monster_points(points);
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -137,6 +139,7 @@ func _demage(_type_bullet):
 			#if !$AudioStreamPlayer2D.is_playing():
 			$AudioStreamPlayer2D.stream = dead_sound;
 			$AudioStreamPlayer2D.play()
+			emit_signal("_monster_points",points);
 			#queue_free();
 			$dead.paused = false;
 		else:
@@ -184,7 +187,8 @@ func _giga():
 		_scale = $skeleton.scale;
 	hp 		= hp + 3;
 	speed 	= speed - 5;
-	demage 	= demage + 1;
+	demage 	= demage +1;
+	points  = points +1; 
 	pass
 
 func _pause(_paused):

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Cowboy.ogg-cc55a2be0ae279ddb540dc5fd652f80d.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/Cowboy.ogg"
+dest_files=[ "res://.import/Cowboy.ogg-cc55a2be0ae279ddb540dc5fd652f80d.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

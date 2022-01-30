@@ -2,6 +2,7 @@ extends Node2D
 var texture;
 var points = 0;
 
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	
@@ -17,12 +18,12 @@ func _set_defaults():
 	$Numero2.scale = Vector2(0.5, 0.5);
 	pass
 
-func _update_counter():
-	update_points();
+func _update_counter(points):
+	update_points(points);
 	pass
 
-func update_points():
-	points = points +1;
+func update_points(_points ):
+	points = points + _points; #+1;
 	var tmp = str(points);
 	if(tmp.length() > 1):
 		texture = load("res://assets/Numbers/number"+tmp[0]+".png");

@@ -1,10 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://escenas/main/main.gd" type="Script" id=1]
+[ext_resource path="res://assets/game_over.png" type="Texture" id=2]
+[ext_resource path="res://assets/titulo.png" type="Texture" id=3]
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
 
+[node name="game_over" type="Sprite" parent="."]
+visible = false
+position = Vector2( 505, 299 )
+texture = ExtResource( 2 )
+
 [node name="spawner" type="Timer" parent="."]
 
+[node name="background_music" type="AudioStreamPlayer2D" parent="."]
+
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[node name="titulo" type="Sprite" parent="."]
+position = Vector2( 513, 303 )
+texture = ExtResource( 3 )

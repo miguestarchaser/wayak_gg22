@@ -4,6 +4,8 @@ var time 	= 99;
 var ready 	= false;
 var texture;
 
+signal _game_over();
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$timer.set_wait_time(1);
@@ -17,7 +19,7 @@ func start_timer():
 	pass
 	
 func stop_timer():
-	
+	$timer.paused = true;
 	pass
 
 func update_timer():
@@ -38,4 +40,5 @@ func update_timer():
 		#$Numero2.scale = Vector2(0.5, 0.5);
 	if(time <= 0):
 		$timer.paused = true;
+		emit_signal("_game_over");
 	pass

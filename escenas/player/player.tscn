@@ -38,3 +38,5 @@ frames = SubResource( 2 )
 animation = "luz"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="player"]
+
+[node name="inmortal" type="Timer" parent="player"]

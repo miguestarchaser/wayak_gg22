@@ -4,16 +4,22 @@ var _bullet 		= load("res://escenas/bullet/bullet.tscn");
 var bullet_sound 	= preload("res://assets/sounds/bullet.wav");
 var demage_sound 	= preload("res://assets/sounds/daño.wav");
 var MOTION_SPEED 	= 200 # Pixels/second.
-var HP 				= 10;
+export var HP 	    = 5;
 var DIR_VIEW 		= 0; 
 var DIR_			= "d";
 var type 			= 0;
+export var inmortal = false;
 
 var paused 			= false;
 
+signal _game_over();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	$inmortal.set_wait_time(0.5);
+	$inmortal.start();
+	$inmortal.paused = true;
+	$inmortal.connect("timeout", self, "_no_inmortal");
 	pass # Replace with function body.
 
 
@@ -86,7 +92,19 @@ func _change():
 	pass
 	
 func _demage(demage):
-	HP = HP - demage;
-	$AudioStreamPlayer2D.stream = demage_sound;
-	$AudioStreamPlayer2D.play()
+	if(!inmortal):
+		inmortal = true;
+		HP = HP - 1;
+		$AudioStreamPlayer2D.stream = demage_sound;
+		$AudioStreamPlayer2D.play()
+		$Sprite.modulate.a 	= 0.5;
+		$inmortal.paused 	= false;
+		if(HP == 0):
+			emit_signal("_game_over");
+	pass
+
+func _no_inmortal():
+	inmortal = false;
+	$inmortal.paused = true;
+	$Sprite.modulate.a = 1;
 	pass
